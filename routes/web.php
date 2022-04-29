@@ -34,5 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
     // Subscription - ajax
     Route::get('subscriptions_ajax', 'SubscriptionController@index_ajax')
         ->name('subscriptions.index_ajax');
+    Route::post('/subscriptions/remove/{subcription}', 'SubscriptionController@remove')
+        ->name('subscriptions.remove');
 });
 

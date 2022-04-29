@@ -91,6 +91,16 @@ class SubscriptionController extends Controller
             'error' => false,
             'mensaje' => ""
         ];
+
+        $customMessages = [
+            'state_id.required' => 'El campo estado es requerido.',
+            'email.required' => 'El campo email es requerido.',
+            'email' => 'El formato del mail es incorrecto.'
+        ];
+        $request->validate([
+            'state_id' => 'required',
+            'email' => 'required|email|max:255|unique:subscriptions'
+        ], $customMessages);
         
         try{
             $subscription = new Subscription();
@@ -107,7 +117,7 @@ class SubscriptionController extends Controller
         } catch(\Exception $ex){
             $response = [
                 'error' => true,
-                'mensaje' => "Ocurrió un error al guardar la suscripción."
+                'mensaje' => "Ocurrió un error al guardar la suscripción." . $ex->getMessage()
             ];
         }
 
@@ -143,9 +153,34 @@ class SubscriptionController extends Controller
      * @param  \App\Models\Subscription  $subscription
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Subscription $subscription)
+    public function update(Request $request, $subscription)
     {
-        //
+        $data = $request->all();
+        $response = [
+            'error' => false,
+            'mensaje' => ""
+        ];
+        
+        try{
+            $subscription = Subscription::findOrFail($subscription);
+            $subscription->email = $data['email'];
+            $subscription->state_id = $data['state_id'];
+            if( $subscription->save() ){
+                $response['mensaje'] = "La suscripción se guardo con éxito.";
+            } else {
+                $response = [
+                    'error' => true,
+                    'mensaje' => "No se pudo guardar la suscripción."
+                ];
+            }
+        } catch(\Exception $ex){
+            $response = [
+                'error' => true,
+                'mensaje' => "Ocurrió un error al guardar la suscripción."
+            ];
+        }
+
+        return response()->json($response);
     }
 
     /**
@@ -157,5 +192,31 @@ class SubscriptionController extends Controller
     public function destroy(Subscription $subscription)
     {
         //
+    }
+
+    public function remove($subscription)
+    {
+        $response = [
+            'error' => false,
+            'mensaje' => ""
+        ];
+
+        try{
+            if( Subscription::findOrFail($subscription)->delete() ){
+                $response['mensaje'] = "La suscripción se eliminó.";
+            } else {
+                $response = [
+                    'error' => true,
+                    'mensaje' => "No se pudo eliminar la suscripción."
+                ];
+            }
+        }catch(\Exception $ex){
+            $response = [
+                'error' => true,
+                'mensaje' => "Ocurrió un error al eliminar la suscripción."
+            ];
+        }
+
+        return response()->json($response);
     }
 }

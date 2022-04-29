@@ -3,12 +3,13 @@
         <div class="card-header">
             <h3 class="card-title">Suscripci&oacute;n</h3>
         </div>-->
-        <form id="quickForm" novalidate="novalidate">
+        <form id="frm_subscription">
             <!--<div class="card-body">-->
             <div class="form-group">
-                <label for="tx_email">Email</label>
+                <label for="tx_email">Email <span style="color: red;">(requerido)</span></label>
                 <input type="email" name="tx_email" class="form-control" 
-                    id="tx_email" placeholder="Email">
+                    id="tx_email" placeholder="Email" required>
+                <input type="hidden" name="hd_subscriptionid" id="hd_subscriptionid" value="">
             </div>
             <div class="form-group">
                 <label for="lst_states">Estado</label>
@@ -21,7 +22,8 @@
             </div>
             <!--</div>
             <div class="card-footer">-->
-                <button type="button" class="btn btn-primary" id="send_subscription">Enviar</button>
+                <button type="button" class="btn btn-success" id="send_subscription">Guardar</button>
+                <button type="button" class="btn btn-primary" id="clean_subscription">Limpiar</button>
             <!--</div>-->
         </form>
     <!--</div>-->

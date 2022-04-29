@@ -6,10 +6,11 @@
             <thead class="text-center">
                 <tr>
                     <th class="col-sm-1">#</th>
-                    <th class="col-sm-6">Email</th>
+                    <th class="col-sm-3">Email</th>
                     <th class="col-sm-2" style="text-align:center;">Estado</th>
-                    <th class="col-sm-1" style="text-align:center;">Creado</th>
-                    <th class="col-sm-1" style="text-align:center;">Actualizado</th>
+                    <th class="col-sm-2" style="text-align:center;">Creado</th>
+                    <th class="col-sm-2" style="text-align:center;">Actualizado</th>
+                    <th class="col-sm-2" style="text-align:center;">Acciones</th>
                 </tr>
             </thead>
         </table>

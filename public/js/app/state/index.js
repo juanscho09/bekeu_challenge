@@ -20,7 +20,8 @@ function importStates(){
         method: "POST",
         beforeSend: function () {
             Swal.fire({
-                title: 'La petición se está procesando...'
+                title: 'La petición se está procesando...',
+                allowOutsideClick: false
             });
             Swal.showLoading()
         }

@@ -15,10 +15,10 @@ class StateImport implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        /*$states = State::where('id', $row['id'])->get();
+        $states = State::where('id', $row['id'])->get();
         if( count($states) > 0 ){
             return $states->first();
-        }*/
+        }
         return new State([
             'id' => $row['id'],
             'code' => $row['code'],
